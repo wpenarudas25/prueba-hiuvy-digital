@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 import com.wpenarudas.prueba.entity.User;
 import com.wpenarudas.prueba.repository.RoleRepository;
@@ -66,6 +68,45 @@ public class UserController {
 	public String userlist(Model model) {
 		model.addAttribute("userList", userService.getAllUsers());
 		return "usuarios/listUsuarios";
+	}
+
+	@GetMapping("/editUser/{id}")
+	public String getEditUserForm(Model model, @PathVariable(name = "id") Long id) throws Exception {
+		User userToEdit = userService.getUserById(id);
+		model.addAttribute("usuarios", userService.getAllUsers());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles", roleRepository.findAll());
+		model.addAttribute("userForm", userToEdit);
+
+		// model.addAttribute("passwordForm",new ChangePassword(id));
+
+		return "usuarios/editarUsuario";
+	}
+
+	@PostMapping("/editUser")
+	public String editarUsuario(@Validated @ModelAttribute("userForm") User user, BindingResult result,
+			ModelMap model) {
+		if (result.hasErrors()) {
+			model.addAttribute("userForm", user);
+			model.addAttribute("userList", userService.getAllUsers());
+			//model.addAttribute("passwordForm", new ChangePassword(usuario.getId()));
+			//model.addAttribute("nombre_usuario", SecurityContextHolder.getContext().getAuthentication().getName());
+		} else {
+			try {
+				userService.updateUser(user);
+				model.addAttribute("userForm", new User());
+			} catch (Exception e) {
+				model.addAttribute("formErrorMessage", e.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("usuarios", userService.getAllUsers());
+				model.addAttribute("roles", roleRepository.findAll());
+				//model.addAttribute("passwordForm", new ChangePassword(usuario.getId()));
+				//model.addAttribute("nombre_usuario", SecurityContextHolder.getContext().getAuthentication().getName());
+			}
+		}
+
+		return "redirect:/list";
+
 	}
 
 }
