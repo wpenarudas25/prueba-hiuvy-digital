@@ -82,7 +82,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(Long id) throws Exception {
-		// TODO Auto-generated method stub
+		User user = repository.findById(id)
+				.orElseThrow(() -> new Exception("No se encontró el usuario a eliminar." + this.getClass().getName()));
+		repository.delete(user);
 
 	}
 
