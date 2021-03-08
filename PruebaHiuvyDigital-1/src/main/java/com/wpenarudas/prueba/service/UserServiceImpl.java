@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.wpenarudas.prueba.dto.ChangePassword;
 import com.wpenarudas.prueba.entity.User;
 import com.wpenarudas.prueba.repository.UserRepository;
 
@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository repository;
-
+	
 	@Override
 	public Iterable<User> getAllUsers() {
 		return repository.findAll();
@@ -46,8 +46,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User createUser(User user) throws Exception {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user) && checkEmailAvailable(user)) {
-			// String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-			// user.setPassword(encodedPassword);
 			user = repository.save(user);
 		}
 		return user;
@@ -62,11 +60,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(User user) throws Exception {
 		User usuarioEncontrado = getUserById(user.getId());
-		mapUsuario(user, usuarioEncontrado);
-		//String encodedPassword = bCryptPasswordEncoder.encode(usuarioEncontrado.getPassword());
-		//usuarioEncontrado.setPassword(encodedPassword);
+		String Password = user.getPassword();
+		user.setPassword(Password);
 		String confirmPassword = usuarioEncontrado.getPassword();
-		usuarioEncontrado.setConfirmPassword(confirmPassword);
+		user.setConfirmPassword(confirmPassword);
+		mapUsuario(user, usuarioEncontrado);
 		return repository.save(usuarioEncontrado);
 	}
 	
@@ -86,6 +84,23 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new Exception("No se encontró el usuario a eliminar." + this.getClass().getName()));
 		repository.delete(user);
 
+	}
+
+	@Override
+	public User changePassword(ChangePassword form) throws Exception {
+User user = getUserById(form.getId());
+		
+				
+		if( user.getPassword().equals(form.getNewPassword())) {
+			throw new Exception ("Nuevo debe ser diferente al password actual.");
+		}
+		
+		if( !form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception ("Nuevo Password y Confirm Password no coinciden.");
+		}
+		
+		
+		return repository.save(user);
 	}
 
 }

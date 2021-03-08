@@ -27,48 +27,36 @@
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 		<div class="jumbotron">
 			<div class="container">
-				<h3>Encuentra el trabajo que andas buscando.</h3>
-				Puedes buscar por descripción y categoría.
-				<form class="form-inline">
-					<input type="text" class="form-control mb-3"
-						id="exampleFormControlInput1" placeholder="Escriba una búsqueda">&nbsp;
-					<select class="custom-select custom-select mb-3">
-						<option selected>Seleccione una categoría</option>
-						<option value="1">Ventas</option>
-						<option value="2">Contabilidad</option>
-						<option value="3">Transporte</option>
-						<option value="4">Informática</option>
-						<option value="5">Construcción</option>
-					</select>&nbsp;
-					<button type="submit" class="btn btn-primary mb-3">Buscar</button>
-				</form>
+				<h3>Implementación del punto # 2 de la prueba</h3>
+				Creando una aplicaión donde se realiza un CRUD con la entidad User.
+
 			</div>
 		</div>
-		<hr>
+
 
 		<div class="container">
-			<h2 class="font-weight-bold text-center text-capitalize">DESTACADOS</h2>
+			<h2 class="font-weight-bold text-center text-capitalize">Funciones del programa</h2>
 			<hr>
-			<div class="row" th:each="vacante : ${vacantes}">
-				<div class="col-md-3">
-					<img class="rounded mx-auto d-block"
-						th:src="${'/images/' + vacante.imagen}"
-						alt="Generic placeholder image" width="220" height="220">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Listar Usuarios</h5>
+							<p class="card-text">En la opción "Listado de usuarios" podrás ver los usuarios
+							ingresados en el sistema y las acciones que se pueden realizar.</p>
+							<a href="/list" class="btn btn-primary">Listado de Usuarios</a>
+						</div>
+					</div>
 				</div>
-				<div class="col-md-9">
-					<h2>[[${vacante.nombre}]]</h2>
-					<h6 class="card-title">
-						<strong>Categoría: </strong> <span>[[${vacante.destacado}]]</span>
-					</h6>
-					<h6 class="card-title">
-						<strong>Publicado: </strong> <span> [[${vacante.fecha}]]</span>
-					</h6>
-					<p>[[${vacante.descripcion}]]</p>
-					<p>
-						<a class="btn btn-secondary"
-							th:href="@{/vacantes/view/{id} (id=${vacante.id})}" role="button">Detalles
-							&raquo;</a>
-					</p>
+				<div class="col-sm-6">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Crear Usuario</h5>
+							<p class="card-text">En esta sección se muestra un formulario con los campos necesarios 
+							para ingresar un nuevo usuario a la aplicación.</p>
+							<a href="/userForm" class="btn btn-primary">Crear Usuario</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<hr>

@@ -101,6 +101,17 @@
 										placeholder="Tipo de usuario" required="required"> -->
 								</div>
 							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="password">Contraseña: </label> <input
+										th:field="${userForm.password}" type="password"
+										placeholder="******" th:value="${userForm.password}" class="form-control"
+										id="password" name="password" required="required">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('password')}"
+										th:errors="*{password}">Password Error</div>
+								</div>
+							</div>
 						</div>
 						<hr>
 						<div>

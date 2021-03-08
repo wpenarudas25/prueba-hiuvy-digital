@@ -32,7 +32,7 @@
 					<a class="btn btn-primary" th:href="@{/userForm}" role="button"><i
 						class="fas fa-file" aria-hidden="true"></i> Nuevo</a>
 					<hr>
-					<table class="table table-hover">
+					<table class="table table-responsive-md">
 						<thead class="thead-light">
 							<tr>
 								<th scope="col">Id</th>
@@ -53,7 +53,11 @@
 								<td><a th:href="@{'/editUser/{id}' (id=${listUsuario.id})}"
 									class="btn btn-success btn-sm" role="button"
 									title="Editar usuario."><i class="fas fa-edit"
-										aria-hidden="true"></i></a>  <a href="#"
+										aria-hidden="true"></i></a> <a
+									th:href="@{'/editUserPassword/{id}' (id=${listUsuario.id})}"
+									class="btn btn-warning btn-sm" role="button"
+									title="Cambiar contraseña."><i class="fas fa-key"
+										aria-hidden="true"></i></a> <a href="#"
 									th:href="@{/eliminarUsuario/}+${listUsuario.id}"
 									onclick="return confirm('¿Estas seguro de eliminar este usuario?')"
 									class="btn btn-danger btn-sm" role="button"

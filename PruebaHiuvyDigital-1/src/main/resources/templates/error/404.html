@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title>Hiuvy Digital| Error 404</title>
+<link rel="shortcut icon" href="/images/logo.png">
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+
+<style type="text/css">
+body {
+	padding-top: 5%;
+}
+
+img {
+	width: 100%;
+}
+</style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">Header</div>
+	<div class="container text-center">
+		<div class="mx-auto col-10 card">
+			<div class="card-header">
+				<h4 >404 - Página no encontrada</h4>
+			</div>
+			<div class="card-body">
+				<a href="/usuarios/create"><img src="static/images/error/500.png"
+					th:src="@{/images/error/404.jpg}" /></a>
+			</div>
+		</div>
+	</div>
+	<div th:insert="~{fragments/footer :: footer}">&copy;</div>
+</body>
+</html>
