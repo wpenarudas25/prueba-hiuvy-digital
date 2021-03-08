@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.sun.istack.NotNull;
+
 @Entity
 public class User implements Serializable {
 
@@ -30,17 +32,23 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column
+	@NotNull
 	private String firstName;
 	@Column
+	@NotNull
 	private String lastName;
 	@Column(unique = true)
+	@NotNull
 	private String email;
 	@Column(unique = true)
+	@NotNull
 	private String username;
 	@Column
+	@NotNull
 	private String password;
 
 	@Transient
+	@NotNull
 	private String confirmPassword;
 
 	@ManyToMany(fetch = FetchType.LAZY)
