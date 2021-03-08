@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title> Hiuvy Digital | Editar usuario</title>
+<link rel="shortcut icon" href="/images/logo.png">
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	rel="stylesheet">
+</head>
+</head>
+
+<body>
+
+	<div th:replace="~{fragments/headerIn :: headerIn}">Header</div>
+
+	<main role="main">
+		<hr>
+		<div class="container">
+
+			<div class="card">
+				<h4 class="card-header">
+					<strong>Editar usuario</strong>
+				</h4>
+				<div class="card-body">
+					<form class="form" th:action="@{/usuarios/editUser}" role="form"
+						autocomplete="on" th:object="${userForm}" method="post">
+						<div class="row"> <input class="form-control" type="hidden" th:field="${userForm.id}">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="nombre">Nombre</label> <input type="text"
+										class="form-control" id="nombre" name="nombre"
+										th:field="${userForm.nombre}" placeholder="Escriba el nombre"
+										required="required">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">nombre
+										Error</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="correo">Correo electrónico</label> <input
+										type="email" class="form-control" id="correo" name="correo"
+										th:field="${userForm.correo}"
+										placeholder="Escriba el correo electrónico"
+										required="required">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Correo
+										Error</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="estado">Estado: </label> <select
+										class="form-control" size="1" id="estado" name="estado"
+										th:field="${userForm.estado}">
+										<option value="ACTIVO">Activo</option>
+										<option value="BLOQUEADO">Bloqueado</option>
+										<option value="CREADO">Creado</option>
+									</select>
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('Estado')}" th:errors="*{estado}">Estado
+										Error</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="username">Usuario: </label> <input type="text"
+										class="form-control" id="username" name="username"
+										th:field="${userForm.username}"
+										placeholder="Escriba el nombre de usuario" required="required">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('username')}"
+										th:errors="*{username}">Username Error</div>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="tipo">Tipo de usuario: </label> <select
+										class="form-control" size="1" id="tipo" name="tipo"
+										th:field="${userForm.tipo}">
+										<option value="USER">Usuario</option>
+										<option value="EDITOR">Editor</option>
+										<option value="ADMIN">Administrador</option>
+									</select>
+									<div class="alert-danger" th:if="${#fields.hasErrors('tipo')}"
+										th:errors="*{tipo}">Tipo Error</div>
+									<!-- <input type="text" class="form-control" id="tipo" name="tipo"
+										placeholder="Tipo de usuario" required="required"> -->
+								</div>
+							</div>	
+						</div>
+						<hr>
+						<div>
+							<a type="reset" class="btn btn-danger" title="Ir al login"
+								th:href="@{/usuarios/index}">Cancelar</a>
+
+							<button type="submit" title="Actualizar usuario."
+								class="btn btn-primary">Guardar</button>
+						</div>
+
+						<div class="alert alert-danger" th:if="${formErrorMessage}"
+							th:href="@{/usuarios/index}">Error Message</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<!-- /container -->
+
+	</main>
+
+	<div th:insert="~{fragments/footer :: footer}"></div>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

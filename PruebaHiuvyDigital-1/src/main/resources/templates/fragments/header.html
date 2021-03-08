@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="shortcut icon" href="/images/logo.png">
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	rel="stylesheet">
+
+</head>
+<body>
+	<div th:with="disableFields= if${nombre_usuario}">
+		<nav class="navbar navbar-dark fixed-top bg-dark" th:fragment="header">
+			<a href="/"> <img style="width: 200px" class="media-object"
+				src="/images/logo.png" alt="...">
+			</a> <a style="font-size: 34px; font-family: sans-serif;"
+				class="navbar-brand" href="/"><strong>Solución Prueba
+					Técnica</strong> </a>
+
+			<div class="inline">
+				<ul class="navbar-nav mr-auto">
+					<li><a class="btn btn-primary" href="/list"
+						th:disabled="${disableFields}">Usuarios</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>
