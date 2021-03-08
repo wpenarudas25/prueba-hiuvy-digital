@@ -8,7 +8,7 @@
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
 
-<title> Hiuvy Digital | Editar usuario</title>
+<title>Hiuvy Digital | Editar usuario</title>
 <link rel="shortcut icon" href="/images/logo.png">
 <!-- Bootstrap core CSS -->
 <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -23,7 +23,7 @@
 
 <body>
 
-	<div th:replace="~{fragments/headerIn :: headerIn}">Header</div>
+	<div th:replace="~{fragments/header :: header}">Header</div>
 
 	<main role="main">
 		<hr>
@@ -34,46 +34,46 @@
 					<strong>Editar usuario</strong>
 				</h4>
 				<div class="card-body">
-					<form class="form" th:action="@{/usuarios/editUser}" role="form"
+					<form class="form" th:action="@{/editUser}" role="form"
 						autocomplete="on" th:object="${userForm}" method="post">
-						<div class="row"> <input class="form-control" type="hidden" th:field="${userForm.id}">
+						<div class="row">
+							<input class="form-control" type="hidden"
+								th:field="${userForm.id}">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label for="nombre">Nombre</label> <input type="text"
-										class="form-control" id="nombre" name="nombre"
-										th:field="${userForm.nombre}" placeholder="Escriba el nombre"
-										required="required">
+									<label for="firstName">Nombre:</label> <input type="text"
+										class="form-control" id="name" name="firstName"
+										th:field="${userForm.firstName}"
+										placeholder="Escriba el nombre" required="required">
 									<div class="alert-danger"
-										th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">nombre
-										Error</div>
+										th:if="${#fields.hasErrors('firstName')}"
+										th:errors="*{firstName}">nombre Error</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="lastName">Apellido:</label> <input type="text"
+										class="form-control" id="lastName" name="lastName"
+										th:field="${userForm.lastName}"
+										placeholder="Escriba el apellido" required="required">
+									<div class="alert-danger"
+										th:if="${#fields.hasErrors('lastName')}"
+										th:errors="*{lastName}">nombre Error</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="correo">Correo electrónico</label> <input
-										type="email" class="form-control" id="correo" name="correo"
-										th:field="${userForm.correo}"
+									<label for="email">Correo electrónico</label> <input
+										type="email" class="form-control" id="email" name="email"
+										th:field="${userForm.email}"
 										placeholder="Escriba el correo electrónico"
 										required="required">
-									<div class="alert-danger"
-										th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Correo
-										Error</div>
+									<div class="alert-danger" th:if="${#fields.hasErrors('email')}"
+										th:errors="*{email}">Correo Error</div>
 								</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="estado">Estado: </label> <select
-										class="form-control" size="1" id="estado" name="estado"
-										th:field="${userForm.estado}">
-										<option value="ACTIVO">Activo</option>
-										<option value="BLOQUEADO">Bloqueado</option>
-										<option value="CREADO">Creado</option>
-									</select>
-									<div class="alert-danger"
-										th:if="${#fields.hasErrors('Estado')}" th:errors="*{estado}">Estado
-										Error</div>
-								</div>
-							</div>
+
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="username">Usuario: </label> <input type="text"
@@ -89,30 +89,30 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="tipo">Tipo de usuario: </label> <select
-										class="form-control" size="1" id="tipo" name="tipo"
-										th:field="${userForm.tipo}">
-										<option value="USER">Usuario</option>
-										<option value="EDITOR">Editor</option>
-										<option value="ADMIN">Administrador</option>
+										class="form-control" th:size="1"
+										th:field="${userForm.roles}" th:disabled="${disableFields}">
+											<option th:each="role :${roles}" th:value="${role.id}"
+												th:text="${role.name}"></option>
 									</select>
-									<div class="alert-danger" th:if="${#fields.hasErrors('tipo')}"
-										th:errors="*{tipo}">Tipo Error</div>
-									<!-- <input type="text" class="form-control" id="tipo" name="tipo"
+										<div class="alert-danger"
+											th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">Name
+											Error</div>
+										<!-- <input type="text" class="form-control" id="tipo" name="tipo"
 										placeholder="Tipo de usuario" required="required"> -->
 								</div>
-							</div>	
+							</div>
 						</div>
 						<hr>
 						<div>
 							<a type="reset" class="btn btn-danger" title="Ir al login"
-								th:href="@{/usuarios/index}">Cancelar</a>
+								th:href="@{/list}">Cancelar</a>
 
 							<button type="submit" title="Actualizar usuario."
 								class="btn btn-primary">Guardar</button>
 						</div>
 
 						<div class="alert alert-danger" th:if="${formErrorMessage}"
-							th:href="@{/usuarios/index}">Error Message</div>
+							th:href="@{/list}">Error Message</div>
 					</form>
 				</div>
 			</div>

@@ -5,12 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.wpenarudas.prueba.entity.User;
 import com.wpenarudas.prueba.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
 	UserRepository repository;
 
@@ -45,8 +46,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User createUser(User user) throws Exception {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user) && checkEmailAvailable(user)) {
-			//String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-			//user.setPassword(encodedPassword);
+			// String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+			// user.setPassword(encodedPassword);
 			user = repository.save(user);
 		}
 		return user;
@@ -54,20 +55,35 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id).orElseThrow(() -> new Exception("El usuario no existe."));
+
 	}
 
 	@Override
 	public User updateUser(User user) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		User usuarioEncontrado = getUserById(user.getId());
+		mapUsuario(user, usuarioEncontrado);
+		//String encodedPassword = bCryptPasswordEncoder.encode(usuarioEncontrado.getPassword());
+		//usuarioEncontrado.setPassword(encodedPassword);
+		String confirmPassword = usuarioEncontrado.getPassword();
+		usuarioEncontrado.setConfirmPassword(confirmPassword);
+		return repository.save(usuarioEncontrado);
+	}
+	
+	protected void mapUsuario(User from, User to) {
+		to.setUsername(from.getUsername());
+		to.setFirstName(from.getFirstName());
+		to.setLastName(from.getLastName());
+		to.setRoles(from.getRoles());
+		to.setEmail(from.getEmail());
+		to.setPassword(from.getPassword());
+		to.setConfirmPassword(from.getConfirmPassword());
 	}
 
 	@Override
 	public void deleteUser(Long id) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
