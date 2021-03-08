@@ -29,44 +29,36 @@
 					<strong>Listado de Usuarios</strong>
 				</h4>
 				<div class="card-body">
-					<a class="btn btn-primary" th:href="@{/create}"
-						role="button"><i class="fas fa-file" aria-hidden="true"></i>
-						Nuevo</a>
+					<a class="btn btn-primary" th:href="@{/create}" role="button"><i
+						class="fas fa-file" aria-hidden="true"></i> Nuevo</a>
 					<hr>
 					<table class="table table-hover">
 						<thead class="thead-light">
 							<tr>
 								<th scope="col">Id</th>
 								<th scope="col">Nombre</th>
+								<th scope="col">Apellido</th>
 								<th scope="col">Username</th>
-								<th scope="col">Email</th>
+								<th scope="col">Correo</th>
 								<th scope="col">Operaciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="tmpUsuario : ${usuarios}">
-								<td id="userIdHiddenInput" th:text="${tmpUsuario.id}"></td>
-								<td th:text="${tmpUsuario.nombre}"></td>
-								<td th:text="${tmpUsuario.username}"></td>
-								<td th:text="${tmpUsuario.correo}"></td>
-								<td><a
-									th:href="@{'/usuarios/editUser/{id}' (id=${tmpUsuario.id})}"
+							<tr th:each="listUsuario: ${userList}">
+								<td id="userIdHiddenInput" th:text="${listUsuario.id}"></td>
+								<td th:text="${listUsuario.firstName}"></td>
+								<td th:text="${listUsuario.lastName}"></td>
+								<td th:text="${listUsuario.username}"></td>
+								<td th:text="${listUsuario.email}"></td>
+								<td><a th:href="@{'/editUser/{id}' (id=${listUsuario.id})}"
 									class="btn btn-success btn-sm" role="button"
 									title="Editar usuario."><i class="fas fa-edit"
-										aria-hidden="true"></i></a> 	
-										<a
-									th:href="@{'/usuarios/editUserPassword/{id}' (id=${tmpUsuario.id})}"
-									class="btn btn-warning btn-sm" role="button"
-									title="Cambiar contraseña."><i class="fas fa-key"
-										aria-hidden="true"></i></a>								
-										
-										<a href="#" th:href="@{/usuarios/eliminarUsuario/}+${tmpUsuario.id}"
-										onclick="return confirm('¿Estas seguro de eliminar este usuario?')"
+										aria-hidden="true"></i></a>  <a href="#"
+									th:href="@{/eliminarUsuario/}+${listUsuario.id}"
+									onclick="return confirm('¿Estas seguro de eliminar este usuario?')"
 									class="btn btn-danger btn-sm" role="button"
 									title="Eliminar el usuario."><i class="fas fa-trash"
-										aria-hidden="true"></i></a>
-										
-										</td>
+										aria-hidden="true"></i></a></td>
 							</tr>
 						</tbody>
 					</table>

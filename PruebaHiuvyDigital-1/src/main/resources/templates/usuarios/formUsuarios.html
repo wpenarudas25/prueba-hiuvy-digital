@@ -35,82 +35,94 @@
 					<strong>Crear nuevo usuario</strong>
 				</h4>
 				<div class="card-body">
-				<div>
-					<form  class="form" th:action="@{/usuarios/create}" role="form"
-						autocomplete="on" th:object="${userForm}" method="post">
-						<div class="row">
-							<input class="form-control" type="hidden">
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="nombre">Nombre</label> <input type="text"
-										class="form-control" id="nombre" name="nombre"
-										 placeholder="Escriba su nombre"
-										required="required">
-									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="apellido">Apellido</label> <input type="text"
-										class="form-control" id="apellido" name="apellido"
-										 placeholder="Escriba su apellido"
-										required="required">
-									
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="correo">Correo electrónico</label> <input
-										type="email" class="form-control" id="correo" name="correo"
-										
-										placeholder="Escriba el correo electrónico"
-										required="required">
-									
-								</div>
-							</div>
-							
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="username">Nombre de Usuario: </label> <input type="text"
-										class="form-control" id="username" name="username"
-										
-										placeholder="Escriba el nombre de usuario" required="required">
-									
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="password">Contraseña: </label> <input
-										 type="password"
-										class="form-control" id="password" name="password"
-										placeholder="Escriba la clave de acceso" required="required">
-									
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label for="confirmPassword">Confirmar Contraseña: </label> <input
-										type="password" class="form-control" id="confirmPassword"
-										name="confirmPassword" 
-										placeholder="Escriba nuevamente la contraseña"
-										required="required">
-									
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div>
-							<a type="reset" class="btn btn-danger" title="Ir al login"
-								th:href="@{/index}">Cancelar</a>
+					<div>
+						<form class="form" th:action="@{/create}" role="form"
+							autocomplete="on" th:object="${userForm}" method="post">
+							<div class="row">
+								<input class="form-control" type="hidden">
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="nombre">Nombre:</label> <input type="text"
+											th:field="${userForm.firstName}"
+											class="form-control" id="nombre" name="nombre"
+											placeholder="Escriba su nombre" required="required">
 
-							<button  type="submit" title="Quiero registrarme."
-								class="btn btn-primary" >Crear usuario</button>
-						</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="apellido">Apellido:</label> <input type="text"
+										th:field="${userForm.lastName}"
+											class="form-control" id="apellido" name="apellido"
+											placeholder="Escriba su apellido" required="required">
 
-						<div class="alert alert-danger" th:if="${formErrorMessage}"
-							th:text="${formErrorMessage}">Error Message</div>
-					</form>
-				</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="correo">Correo electrónico:</label> <input
+											type="email" th:field="${userForm.email}" class="form-control" 
+											id="correo" name="correo"
+											placeholder="Escriba el correo electrónico"
+											required="required">
+
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="username">Nombre de Usuario: </label> <input
+											type="text" th:field="${userForm.username}" class="form-control"
+											 id="username"
+											name="username" placeholder="Escriba el nombre de usuario"
+											required="required">
+
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="username">Roles: </label> <select
+											class="form-control" size="1" th:field="${userForm.roles}">
+											<option th:each="role :${roles}" th:value="${role.id}"
+												th:text="${role.name}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="password">Contraseña: </label> <input
+											type="password" class="form-control" id="password"
+											th:field="${userForm.password}" 
+											name="password" placeholder="Escriba la clave de acceso"
+											required="required">
+
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+										<label for="confirmPassword">Confirmar Contraseña: </label> <input
+											type="password" class="form-control" id="confirmPassword"
+											name="confirmPassword" th:field="${userForm.confirmPassword}"
+											placeholder="Escriba nuevamente la contraseña"
+											required="required">
+
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div>
+								<a type="reset" class="btn btn-danger" title="Ir al login"
+									th:href="@{/list}">Cancelar</a>
+
+								<button type="submit" title="Quiero registrarme."
+									class="btn btn-primary">Crear usuario</button>
+							</div>
+
+							<div class="alert alert-danger" th:if="${formErrorMessage}"
+								th:text="${formErrorMessage}">Error Message</div>
+						</form>
+					</div>
 				</div>
 			</div>
 
@@ -126,6 +138,6 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-		
+
 </body>
 </html>
